@@ -1,39 +1,18 @@
-
 :root {
-    --primary: #e45cbf;
-    --secondary: #D33F49;
-    --light: rgb(229, 163, 244);
-    --dark: #000;
-    --diabled: #e7e7e7;
+    --primary: #619b8d;
+    --secondary: #b9f1c4;
+    --light: rgb(204, 211, 209);
+    --dark: #000000;
+    --diabled: hwb(0 100% 0%);
 }
 
-body {
-    font-family: 'Lato', sans-serif;
-    margin: 3%;
-  
-    background-color: var(--diabled);
+.header {
+    margin: 20%;
 }
-
-*:first-letter {
-    text-transform: capitalize;
-}
-
-.roundBorder {
-    border-radius: 5px;
-}
-
-.list {
-    margin: 10%;
-    padding:10%;
-    background-color: var(--light);
-    width: 80%;
-   
-}
-
 .date {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .dateRight {
@@ -42,7 +21,7 @@ body {
 }
 
 #dateNumber {
-    font-size: 50px;
+    font-size: xx-large;
 }
 
 #dateText {
@@ -59,57 +38,100 @@ body {
 #dateMonth,
 #dateYear {
     margin-left: 7px;
-    font-size: 20px;
-}
-
-form {
-    margin: 20px 0;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: auto 35px auto;
-    grid-column-gap: 15px;
-}
-
-input {
-    border: none;
-    padding-left: 10px;
-    background-color: var(--diabled);
-}
-
-input:focus {
-    outline: none;
-}
-
-.addTaskButton,
-.orderButton {
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
+    font-size: xx-large;
 }
 
 
-.task {
-    background-color: var(--primary);
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos Header */
+.title{
+    text-align: center;
+    font-size: xx-large;
+    margin-top: 15%;
+}
+
+/* Estilos del los filtros */
+.filterSection{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50%;
+    margin-top: 20%;
+}
+
+.btnFilter{
     padding: 15px;
-    color: var(--light);
     cursor: pointer;
-}
-#tasksContainer2{
+    border: none;
     background-color: var(--primary);
-    margin-top: 15px;
-    margin-bottom: 15px;
-   
+    color: var(--diabled);
+    border-radius: 10px;
+}
+
+/* Estilos de la lista de tareas */
+.contTaks{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px !important;
+}
+
+.contTask{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px !important;
+}
+
+.btnDelete{
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--secondary);
+    font-weight: 700;
     cursor: pointer;
 }
-#blanco{ 
-    background-color:rgb(252, 242, 242);
-    margin-top: 15px;
-    margin-bottom: 15px;
-   
-   
+
+/* Estilos del formulario para agregar tareas */
+.formAdd{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin: 30px auto auto;
+    background-color: var(--light);
+    width: max-content;
+    padding: 20px;
+    border-radius: 20px;
 }
-.done {
-    background-color: var(--diabled);
-    text-decoration: line-through;
-    color: var(--dark);
+
+.titleTask{
+    padding: 10px;
+    font-size: large;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+}
+
+.dateTask{
+    padding: 10px;
+    font-size: large;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+    width: 90%;
+}
+
+.btnAddTask{
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--primary);
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--diabled);
 }

@@ -1,58 +1,136 @@
-const dateNumber = document.getElementById('dateNumber');
-const dateText = document.getElementById('dateText');
-const dateMonth = document.getElementById('dateMonth');
-const dateYear = document.getElementById('dateYear');
 
+//Pendientes
+//Limpiar filtros, acortar el codigo, poder marcar o desmarcar si una actividad se realizo o no y editar la fecha
+
+let taskList = [
+    {
+      id: 0,
+      title: "Base de datos",
+      date: "2022-09-13",
+      check: true,
+    },
+    {
+      id: 1,
+      title: "Ingles",
+      date: "2022-10-30",
+      check: true,
+    },
+    {
+      id: 2,
+      title: "Lógica",
+      date: "2022-09-29",
+      check: true,
+    },
+    {
+      id: 3,
+      title: "Ingles 2",
+      date: "2022-11-01",
+      check: false,
+    },
+  ];
+  
+// Contenedor de la lista de trareas
+
+const dateNumber = document.getElementById("dateNumber");
+const dateText = document.getElementById("dateText");
+const dateMonth = document.getElementById("dateMonth");
+const dateYear = document.getElementById("dateYear");
+const lista = document.getElementById("lista");
 // Tasks Container
-const tasksContainer = document.getElementById('tasksContainer');
+const tasksContainer = document.getElementById("tasksContainer");
 
 const setDate = () => {
-    const date = new Date();
-    dateNumber.textContent = date.toLocaleString('es', { day: 'numeric' });
-    dateText.textContent = date.toLocaleString('es', { weekday: 'long' });
-    dateMonth.textContent = date.toLocaleString('es', { month: 'short' });
-    dateYear.textContent = date.toLocaleString('es', { year: 'numeric' });
+  const date = new Date();
+  dateNumber.textContent = date.toLocaleString("es", { day: "numeric" });
+  dateText.textContent = date.toLocaleString("es", { weekday: "long" });
+  dateMonth.textContent = date.toLocaleString("es", { month: "short" });
+  dateYear.textContent = date.toLocaleString("es", { year: "numeric" });
 };
-
-const addNewTask = event => {
-    event.preventDefault();
-    const { value } = event.target.taskText;
-    if(!value) return;
-    const task = document.createElement('h1');
-    task.classList.add('task', 'roundBorder');
-    task.addEventListener('click', changeTaskState)
-    task.textContent = value;
-    //--------------------//
-    const value2 = event.target.taskText2.value;
-    if(!value2) return;
-    const task2 = document.createElement('h3');
-    task2.classList.add('task2', 'roundBorder2');
-    task2.addEventListener('click', changeTaskState)
-    task2.textContent = value2;
-    console.log(value, value2)
-    tasksContainer.prepend(task2);
-    tasksContainer.prepend(task);
-    document.createAttribute('br')
-    event.target.reset();
-
-};
-
-const changeTaskState = event => {
-    event.target.classList.toggle('done');
-};
-
-const order = () => {
-    const done = [];
-    const toDo = [];
-    tasksContainer.childNodes.forEach( el => {
-        el.classList.contains('done') ? done.push(el) : toDo.push(el)
-    })
-    return [...toDo, ...done];
-}
-
-const renderOrderedTasks = () => {
-    order().forEach(el => tasksContainer.appendChild(el))
-}
 
 setDate();
 
+
+
+//Evento que ejecuta una funcion apenas carge el DOM
+window.addEventListener("DOMContentLoaded", () => {
+  //Recorremos el arreglo de objetos con un forech
+  taskList.forEach((task) => {
+    const { id, title, date } = task; //Desestructuramos el objeto
+
+    //Insetamos HTML con contenido dinamico que traemos del array
+    lista.innerHTML += `
+        <div class="card contTask" style="width: 20rem;">
+        <div class="card-body ">
+                <h5>${title}</h5>
+                <p>${date}</p>
+                <button onClick="deleteTaks(${id})" class="btnDelete">X</button>
+      </div>
+</div>
+        `;
+  });
+});
+
+
+//Borrar Tareas
+function deleteTaks(id) {
+  //borramos indicando la pocion
+  taskList.splice(id, 1);
+
+  lista.innerHTML = ""; //vaciamos nuesta caja de listas
+
+  //Llenamos nuestra caja de listas con las que ya se realizaron
+  taskList.forEach((task) => {
+    const { id, title, date } = task; //Desestructuramos el objeto
+    //Insetamos HTML con contenido dinamico que traemos del array
+    lista.innerHTML += `
+
+    <div class="card contTask" style="width: 30rem;">
+    <div class="card-body contTask">
+            <h5>${title}</h5>
+            <p>${date}</p>
+            <button onClick="deleteTaks(${id})" class="btnDelete">X</button>
+  </div>
+</div>
+    `;
+  });
+}
+
+//añadir tareas
+const form = document.getElementById("form");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault(); //Prevenimos el evento por defecto de los formularios
+
+  //Capturamos los datos
+  const titleTask = document.getElementById("titleTask").value;
+  const dateTask = document.getElementById("dateTask").value;
+
+  //Creamos un objeto con la nueva tarea
+  let newTask = {
+    id: taskList.length,
+    title: titleTask,
+    date: dateTask,
+    check: false,
+  };
+  //añadimos la tarea al arreglo
+  taskList.push(newTask);
+  console.log(newTask);
+  console.log(taskList);
+  lista.innerHTML = ""; //vaciamos nuesta caja de listas
+
+  //Llenamos nuestra caja de listas con las que ya se realizaron
+  taskList.forEach((task) => {
+    const { id, title, date } = task; //Desestructuramos el objeto
+    //Insetamos HTML con contenido dinamico que traemos del array
+    lista.innerHTML += `
+
+    <div class="card contTask" style="width: 20rem;">
+    <div class="card-body contTask">
+            <h5>${title}</h5>
+            <p>${date}</p>
+            <button onClick="deleteTaks(${id})" class="btnDelete">X</button>
+  </div>
+</div>
+    `;
+  });
+});
